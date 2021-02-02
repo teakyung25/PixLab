@@ -157,6 +157,70 @@ public class Picture extends SimplePicture {
 		}
 	}
 
+	public void mirrorVerticalRightToLeft(){
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		int width = pixels[0].length;
+		for (int row = 0; row < pixels.length; row++) {
+			for (int col = 0; col < width / 2; col++) {
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[row][width - 1 - col];
+				leftPixel.setColor(rightPixel.getColor());
+			}
+		}
+	}
+
+	public void mirrorHorizontal() {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel top = null;
+		Pixel bottom = null;
+		int width = pixels[0].length;
+		for (int col = 0; col < width; col++) {
+			for (int row = 0; row < pixels.length/2; row++) {
+				top = pixels[row][col];
+				bottom = pixels[pixels.length - 1 - row][col];
+				bottom.setColor(top.getColor());
+			}
+		}
+	}
+
+	public void mirrorHorizontalBotToTop() {
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel top = null;
+		Pixel bottom = null;
+		int width = pixels[0].length;
+		for (int col = 0; col < width; col++) {
+			for (int row = 0; row < pixels.length/2; row++) {
+				top = pixels[row][col];
+				bottom = pixels[pixels.length - 1 - row][col];
+				top.setColor(bottom.getColor());
+			}
+		}
+	}
+
+ public void mirrorDiagonal()
+ {
+	Pixel[][] pixels = this.getPixels2D();
+	Pixel left = null;
+	Pixel right = null;
+
+	// calculate the max area to mirror (min of width or height)
+	int max = pixels.length;
+	if (pixels[0].length < max) {
+		max = pixels[0].length;
+	}
+
+	// loop through to the left of the diagonal line (row=col)
+	for (int row = 1; row < max; row++)	{
+		for (int col = 0; col < row; col++) {
+			left = pixels[row][col];
+			right = pixels[col][row];
+			right.setColor(left.getColor());
+		}
+	}
+ }
+
 	/** Mirror just part of a picture of a temple */
 	public void mirrorTemple() {
 		int mirrorPoint = 276;
