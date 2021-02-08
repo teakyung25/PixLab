@@ -339,20 +339,24 @@ public class Picture extends SimplePicture {
 		this.write("collage.jpg");
 	}
 
-	// public void myCollage() {
-	// 	Picture gorge = new Picture("gorge.jpg");
-	// 	Picture moon = new Picture("moon-surface.jpg");
-	// 	Picture temple = new Picture("temple.jpg");
-	// 	this.copy(gorge,0,0,0,0,150,175);
-	// 	this.copy(moon,0,150,0,0,150,175);
-	// 	this.copy(temple,0,300,0,0,150,175);
-	// 	this.copy(gorge,175,0,0,0,150,175);
-	// 	this.copy(moon,175,150,0,0,150,175);
-	// 	this.copy(temple,175,300,0,0,150,175);
-	// 	this.copy(gorge,175,0,0,0,150,175);
-	// 	this.copy(moon,175,150,0,0,150,175);
-	// 	this.copy(temple,175,300,0,0,150,175);
-	// }
+	public void myCollage() {
+		Picture gorge = new Picture("gorge.jpg");
+		Picture moon = new Picture("moon-surface.jpg");
+		Picture temple = new Picture("temple.jpg");
+		gorge.keepOnlyBlue();
+		moon.negate();
+		temple.zeroBlue();
+		this.copy(gorge,0,0,0,0,150,175);
+		this.copy(moon,0,150,0,0,150,175);
+		this.copy(temple,0,300,0,0,150,175);
+		this.copy(gorge,175,0,0,0,150,175);
+		this.mirrorHorizontal();
+		this.copy(moon,175,150,0,0,150,175);
+		this.copy(temple,175,300,0,0,150,175);
+		this.copy(gorge,175,0,0,0,150,175);
+		this.copy(moon,175,150,0,0,150,175);
+		this.copy(temple,175,300,0,0,150,175);
+	}
 	/**
 	 * Method to show large changes in color
 	 * 
