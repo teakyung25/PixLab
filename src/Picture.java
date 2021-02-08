@@ -307,13 +307,29 @@ public class Picture extends SimplePicture {
 		}
 	}
 
+	public void copy(Picture fromPic, int startToRow, int startToCol, int startFromRow,int startFromCol,int endFromRow, int endFromCol) {
+		Pixel fromPixel = null;
+		Pixel toPixel = null;
+		Pixel[][] toPixels = this.getPixels2D();
+		Pixel[][] fromPixels = fromPic.getPixels2D();
+		for (int fromRow = startFromRow, toRow = startToRow; fromRow < endFromRow
+				&& toRow < toPixels.length; fromRow++, toRow++) {
+			for (int fromCol = startFromCol, toCol = startToCol; fromCol < endFromCol
+					&& toCol < toPixels[0].length; fromCol++, toCol++) {
+				fromPixel = fromPixels[fromRow][fromCol];
+				toPixel = toPixels[toRow][toCol];
+				toPixel.setColor(fromPixel.getColor());
+			}
+		}
+	}                                                                                                                                                              
+
 	/** Method to create a collage of several pictures */
 	public void createCollage() {
 		Picture flower1 = new Picture("flower1.jpg");
 		Picture flower2 = new Picture("flower2.jpg");
-		this.copy(flower1, 0, 0);
-		this.copy(flower2, 100, 0);
-		this.copy(flower1, 200, 0);
+		this.copy(flower1, 0, 0,30,0, 70,80);
+		this.copy(flower2, 100, 0,0,0, 100,80);
+		this.copy(flower1, 200, 0,0,0, 90,80);
 		Picture flowerNoBlue = new Picture(flower2);
 		flowerNoBlue.zeroBlue();
 		this.copy(flowerNoBlue, 300, 0);
@@ -323,6 +339,20 @@ public class Picture extends SimplePicture {
 		this.write("collage.jpg");
 	}
 
+	// public void myCollage() {
+	// 	Picture gorge = new Picture("gorge.jpg");
+	// 	Picture moon = new Picture("moon-surface.jpg");
+	// 	Picture temple = new Picture("temple.jpg");
+	// 	this.copy(gorge,0,0,0,0,150,175);
+	// 	this.copy(moon,0,150,0,0,150,175);
+	// 	this.copy(temple,0,300,0,0,150,175);
+	// 	this.copy(gorge,175,0,0,0,150,175);
+	// 	this.copy(moon,175,150,0,0,150,175);
+	// 	this.copy(temple,175,300,0,0,150,175);
+	// 	this.copy(gorge,175,0,0,0,150,175);
+	// 	this.copy(moon,175,150,0,0,150,175);
+	// 	this.copy(temple,175,300,0,0,150,175);
+	// }
 	/**
 	 * Method to show large changes in color
 	 * 
