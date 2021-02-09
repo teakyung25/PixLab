@@ -339,20 +339,24 @@ public class Picture extends SimplePicture {
 		this.write("collage.jpg");
 	}
 
-	// public void myCollage() {
-	// 	Picture gorge = new Picture("gorge.jpg");
-	// 	Picture moon = new Picture("moon-surface.jpg");
-	// 	Picture temple = new Picture("temple.jpg");
-	// 	this.copy(gorge,0,0,0,0,150,175);
-	// 	this.copy(moon,0,150,0,0,150,175);
-	// 	this.copy(temple,0,300,0,0,150,175);
-	// 	this.copy(gorge,175,0,0,0,150,175);
-	// 	this.copy(moon,175,150,0,0,150,175);
-	// 	this.copy(temple,175,300,0,0,150,175);
-	// 	this.copy(gorge,175,0,0,0,150,175);
-	// 	this.copy(moon,175,150,0,0,150,175);
-	// 	this.copy(temple,175,300,0,0,150,175);
-	// }
+	public void myCollage() {
+		Picture gorge = new Picture("gorge.jpg");
+		Picture moon = new Picture("moon-surface.jpg");
+		Picture temple = new Picture("temple.jpg");
+		gorge.keepOnlyBlue();
+		moon.negate();
+		temple.zeroBlue();
+		this.copy(gorge,0,0,0,0,150,175);
+		this.copy(moon,0,150,0,0,150,175);
+		this.copy(temple,0,300,0,0,150,175);
+		this.copy(gorge,175,0,0,0,150,175);
+		this.mirrorHorizontal();
+		this.copy(moon,175,150,0,0,150,175);
+		this.copy(temple,175,300,0,0,150,175);
+		this.copy(gorge,175,0,0,0,150,175);
+		this.copy(moon,175,150,0,0,150,175);
+		this.copy(temple,175,300,0,0,150,175);
+	}
 	/**
 	 * Method to show large changes in color
 	 * 
@@ -368,6 +372,42 @@ public class Picture extends SimplePicture {
 			for (int col = 0; col < pixels[0].length - 1; col++) {
 				leftPixel = pixels[row][col];
 				rightPixel = pixels[row][col + 1];
+				rightColor = rightPixel.getColor();
+				if (leftPixel.colorDistance(rightColor) > edgeDist)
+					leftPixel.setColor(Color.BLACK);
+				else
+					leftPixel.setColor(Color.WHITE);
+			}
+		}
+	}
+
+	public void edgeDetection2(int edgeDist) {
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+		Color rightColor = null;
+		for (int row = 0; row < pixels.length-1; row++) {
+			for (int col = 0; col < pixels[0].length; col++) {
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[row+1][col];
+				rightColor = rightPixel.getColor();
+				if (leftPixel.colorDistance(rightColor) > edgeDist)
+					leftPixel.setColor(Color.BLACK);
+				else
+					leftPixel.setColor(Color.WHITE);
+			}
+		}
+	}
+
+	public void edgeDetection3(int edgeDist) {
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+		Color rightColor = null;
+		for (int row = 0; row < pixels.length-1; row++) {
+			for (int col = 0; col < pixels[0].length-1; col++) {
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[row+1][col+1];
 				rightColor = rightPixel.getColor();
 				if (leftPixel.colorDistance(rightColor) > edgeDist)
 					leftPixel.setColor(Color.BLACK);
