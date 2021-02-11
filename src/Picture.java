@@ -339,7 +339,10 @@ public class Picture extends SimplePicture {
 		this.write("collage.jpg");
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5bc6d7474b65198e66353d256ecc64f59f665bba
 	public void myCollage() {
 		Picture gorge = new Picture("gorge.jpg");
 		Picture moon = new Picture("moon-surface.jpg");
